@@ -18,7 +18,6 @@ class TextDataset(torch.utils.data.Dataset):
         return len(self.labels)
 
 def load_data(filename):
-    """Load data from JSON Lines file."""
     try:
         return pd.read_json(filename, lines=True)
     except ValueError as e:
@@ -26,7 +25,6 @@ def load_data(filename):
         return pd.DataFrame()
 
 def preprocess_text(text):
-    """Preprocess text by lowercasing and removing punctuation."""
     if isinstance(text, str):
         text = text.lower()
         text = re.sub(r'\s+', ' ', text)

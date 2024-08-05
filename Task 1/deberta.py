@@ -25,7 +25,6 @@ def load_data(filename):
     try:
         return pd.read_json(filename, lines=True)
     except ValueError as e:
-        print(f"Error loading JSON Lines file {filename}: {e}")
         return pd.DataFrame()
 
 def preprocess_text(text, stemmer=None, stop_words=None):
@@ -82,7 +81,7 @@ def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output
     predictions, _ = model.predict([text for text in test_df['postText']])
     
     results = pd.DataFrame({
-        'index': range(len(test_df)),  
+        'id': range(len(test_df)),  
         'spoilerType': [list(spoiler_type_map.keys())[p] for p in predictions]
     })
     
@@ -93,10 +92,6 @@ def main():
     train_df = load_data('train.jsonl')
     val_df = load_data('val.jsonl')
     test_df = load_data('test.jsonl')
-
-    print("Train DataFrame columns:", train_df.columns)
-    print("Validation DataFrame columns:", val_df.columns)
-    print("Test DataFrame columns:", test_df.columns)
 
     stop_words = set(stopwords.words('english'))
     stemmer = PorterStemmer()
@@ -109,10 +104,6 @@ def main():
     spoiler_type_map = {'phrase': 0, 'passage': 1, 'multi': 2}
     train_df = encode_labels(train_df, spoiler_type_map)
     val_df = encode_labels(val_df, spoiler_type_map)
-
-    if 'tags' not in train_df.columns or 'tags' not in val_df.columns:
-        print("Error: 'tags' column is missing in one or more DataFrames.")
-        return
 
     tokenizer = DebertaTokenizer.from_pretrained('microsoft/deberta-base')
 

@@ -21,7 +21,6 @@ def load_data(filename):
     try:
         return pd.read_json(filename, lines=True)
     except ValueError as e:
-        print(f"Error loading JSON Lines file {filename}: {e}")
         return pd.DataFrame()
 
 def preprocess_text(text):
@@ -46,7 +45,6 @@ def tokenize_data(texts, tokenizer, max_length=512):
     return encodings
 
 def generate_predictions_csv(model, tokenizer, test_df, output_file='predictions.csv'):
-    # Tokenize test data
     test_encodings = tokenize_data(test_df['postText'], tokenizer)
     test_dataset = TextDataset(test_encodings, [0] * len(test_df))  
 

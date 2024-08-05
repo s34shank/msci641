@@ -7,7 +7,6 @@ from transformers import BertTokenizer
 import torch
 from simpletransformers.classification import ClassificationModel
 
-# Download required NLTK resources
 nltk.download('stopwords')
 nltk.download('wordnet')
 nltk.download('omw-1.4')
@@ -29,7 +28,6 @@ def load_data(filename):
     try:
         return pd.read_json(filename, lines=True)
     except ValueError as e:
-        print(f"Error loading JSON Lines file {filename}: {e}")
         return pd.DataFrame()
 
 def preprocess_text(text, stop_words=None, lemmatizer=None):
@@ -71,10 +69,8 @@ def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output
     test_encodings = tokenize_data(test_df['postText'], tokenizer)
     test_dataset = TextDataset(test_encodings, [0] * len(test_df))  # Dummy labels for test set
 
-    # Generate predictions
     predictions, _ = model.predict([text for text in test_df['postText']])
     
-    # Reverse the spoiler type mapping for conversion
     spoiler_type_map_reverse = {v: k for k, v in spoiler_type_map.items()}
     results = pd.DataFrame({
         'id': test_df.index,  
@@ -92,7 +88,6 @@ def main():
     
     test_df = preprocess_data(test_df, stop_words, lemmatizer)
 
-    # Load pre-trained model and tokenizer
     tokenizer = BertTokenizer.from_pretrained('bert-base-uncased')
     model = ClassificationModel(
         'bert',

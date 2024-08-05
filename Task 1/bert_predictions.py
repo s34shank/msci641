@@ -21,7 +21,6 @@ def load_data(filename):
     try:
         return pd.read_json(filename, lines=True)
     except ValueError as e:
-        print(f"Error loading JSON Lines file {filename}: {e}")
         return pd.DataFrame()
 
 def preprocess_text(text):

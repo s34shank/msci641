@@ -6,7 +6,7 @@ import re
 import nltk
 from nltk.corpus import stopwords
 from nltk.stem import PorterStemmer
-from transformers import DebertaTokenizer, DebertaForSequenceClassification
+from transformers import RobertaTokenizer
 import torch
 
 def load_custom_qa_data(filename):

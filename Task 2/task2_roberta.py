@@ -1,6 +1,13 @@
 import pandas as pd
 import json
 from simpletransformers.question_answering import QuestionAnsweringModel, QuestionAnsweringArgs
+import pandas as pd
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from transformers import DebertaTokenizer, DebertaForSequenceClassification
+import torch
 
 def load_custom_qa_data(filename):
     with open(filename, 'r') as file:
@@ -67,7 +74,7 @@ def main():
 
     model_args = QuestionAnsweringArgs()
     model_args.train_batch_size = 4
-    model_args.num_train_epochs = 1
+    model_args.num_train_epochs = 3
     model_args.logging_dir = './logs'
     model_args.logging_steps = 10
     model_args.save_steps = float('inf')

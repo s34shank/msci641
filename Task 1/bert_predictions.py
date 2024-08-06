@@ -65,9 +65,9 @@ def tokenize_data(texts, tokenizer, max_length=512):
     encodings = tokenizer(flat_texts, truncation=True, padding=True, max_length=max_length, return_tensors='pt')
     return encodings
 
-def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output_file='predictions.csv'):
+def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output_file='bert_predictions.csv'):
     test_encodings = tokenize_data(test_df['postText'], tokenizer)
-    test_dataset = TextDataset(test_encodings, [0] * len(test_df))  # Dummy labels for test set
+    test_dataset = TextDataset(test_encodings, [0] * len(test_df))  
 
     predictions, _ = model.predict([text for text in test_df['postText']])
     

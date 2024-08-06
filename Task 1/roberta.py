@@ -74,7 +74,7 @@ def dataset_to_df(dataset, tokenizer):
         data.append({'text': texts, 'labels': labels})
     return pd.DataFrame(data)
 
-def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output_file='roberta_improved_predictions.csv'):
+def generate_predictions_csv(model, tokenizer, test_df, spoiler_type_map, output_file='roberta_predictions.csv'):
     test_encodings = tokenize_data(test_df['postText'], tokenizer)
     test_dataset = TextDataset(test_encodings, [0] * len(test_df))  
     

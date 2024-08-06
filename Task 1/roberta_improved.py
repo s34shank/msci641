@@ -126,7 +126,7 @@ def main():
     val_df = dataset_to_df(val_dataset, tokenizer)
 
     model_args = ClassificationArgs()
-    model_args.num_train_epochs = 3  
+    model_args.num_train_epochs = 4  
     model_args.train_batch_size = 8  
     model_args.eval_batch_size = 8
     model_args.learning_rate = 1e-5  

@@ -1,6 +1,12 @@
 import pandas as pd
 import json
 from simpletransformers.question_answering import QuestionAnsweringModel, QuestionAnsweringArgs
+import re
+import nltk
+from nltk.corpus import stopwords
+from nltk.stem import PorterStemmer
+from transformers import RobertaTokenizer
+import torch
 
 def load_custom_qa_data(filename):
     with open(filename, 'r') as file:

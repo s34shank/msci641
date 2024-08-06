@@ -1,7 +1,6 @@
 import pandas as pd
 import json
 from simpletransformers.question_answering import QuestionAnsweringModel, QuestionAnsweringArgs
-import pandas as pd
 import re
 import nltk
 from nltk.corpus import stopwords

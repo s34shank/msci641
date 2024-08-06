@@ -102,8 +102,7 @@ def main():
         evaluate_during_training_steps=10,
         save_steps=10
     )
-
-    # Initialize model
+    
     model = Seq2SeqModel(
         encoder_decoder_type='t5',
         encoder_decoder_name='t5-small',
